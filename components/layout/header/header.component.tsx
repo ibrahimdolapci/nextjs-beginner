@@ -1,13 +1,18 @@
 import { Container, Logo, Actions, Button } from './header.style'
+import { Row, Column } from '../../grid'
 
 export default function Header() {
     return (
         <Container>
-            <Logo src="/images/logo.png" alt="logo"/>
-            <Actions>
-                <Button>Login</Button>
-                <Button primary>Start your free trial</Button>
-            </Actions>
+            <Row className="row">
+                <Column lg="8" className="column">
+                    <Logo src="/images/logo.png" alt="logo" height="50" />
+                    <Actions>
+                        <Button>Login</Button>
+                        <Button primary>Start your free trial</Button>
+                    </Actions>
+                </Column>
+            </Row>
         </Container>
     )
 }
