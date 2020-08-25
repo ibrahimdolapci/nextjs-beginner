@@ -7,12 +7,12 @@ import { Dropdown } from '../../components/dropdown'
 import React from 'react'
 import { ajax } from 'rxjs/ajax';
 import { Subject, BehaviorSubject, combineLatest } from 'rxjs'
-import { takeUntil, debounceTime, map, delay } from 'rxjs/operators'
+import { takeUntil, debounceTime, map, delay, filter, startWith } from 'rxjs/operators'
 import { List } from '../../components/list/list.component'
 import { IResponse, IEntry, ISortOptions } from '../../interfaces'
 import { withRouter } from 'next/router';
 
-interface IState { items: IEntry[], title: string, loading: boolean };
+interface IState { items: IEntry[], title: string, loading: boolean, isErrorOccured: boolean };
 
 export class Popular extends React.Component<{ router }, IState> {
 
@@ -22,7 +22,8 @@ export class Popular extends React.Component<{ router }, IState> {
         this.state = {
             items: [],
             title: '',
-            loading: true
+            loading: true,
+            isErrorOccured: false
         };
 
         this.onSearch = this.onSearch.bind(this);
@@ -38,16 +39,19 @@ export class Popular extends React.Component<{ router }, IState> {
         this.setState({ title: type == 'movie' ? 'Movies' : 'Series' });
 
         const entries$ = ajax.getJSON<IResponse>("/feed/sample.json")
-            .pipe(takeUntil(this.destroy$), delay(2000));
+            .pipe(takeUntil(this.destroy$), delay(1000));
 
-        const searchText$ = this.onSearch$.pipe(debounceTime(500), map(text => text.toLowerCase()));
+        const searchText$ = this.onSearch$
+            .pipe(
+                debounceTime(500),
+                map(text => text.toLowerCase())
+            );
 
         combineLatest(entries$, searchText$, this.sortBy$)
             .subscribe(([res, searchText, options]) => {
-
                 let movies = res.entries.filter(entry => entry.programType == type);
 
-                if (searchText) {
+                if (searchText.length >= 3) {
                     movies = movies.filter(movie => movie.title.toLowerCase().includes(searchText))
                 }
 
@@ -61,6 +65,8 @@ export class Popular extends React.Component<{ router }, IState> {
                 }
 
                 this.setState({ items: movies, loading: false });
+            }, err => {
+                this.setState({ isErrorOccured: true });
             });
     }
 
@@ -74,6 +80,22 @@ export class Popular extends React.Component<{ router }, IState> {
 
     sort(options: ISortOptions) {
         this.sortBy$.next(options)
+    }
+
+    getContent() {
+        if (this.state.isErrorOccured) {
+            return <Progress>Opps Something Went Wrong</Progress>
+        }
+
+        if (this.state.loading) {
+            return <Progress>Loading...</Progress>;
+        }
+
+        if (!this.state.items.length) {
+            return <Progress>No Available Data</Progress>
+        }
+
+        return <List items={this.state.items}></List>
     }
 
     render() {
@@ -90,11 +112,7 @@ export class Popular extends React.Component<{ router }, IState> {
                                 <SearchInput onSearch={this.onSearch} />
                                 <Dropdown sort={this.sort} />
                             </Actions>
-                            {this.state.loading
-                                ? <Progress>Loading...</Progress>
-                                : !this.state.items.length
-                                    ? <Progress>No Available Data</Progress>
-                                    : <List items={this.state.items}></List>}
+                            {this.getContent()}
                         </Column>
                     </Row>
                 </Main>

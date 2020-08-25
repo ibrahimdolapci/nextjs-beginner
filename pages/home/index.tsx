@@ -1,7 +1,8 @@
 import Head from 'next/head'
-import { Main, Cover, Wrapper } from './home.style'
+import { Main, Cover } from './home.style'
 import { Layout } from '../../components/layout'
 import { Row, Column } from '../../components/grid'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -12,14 +13,18 @@ export default function Home() {
       <Main>
         <Row>
           <Column lg="8">
-            <Wrapper>
-              <Cover href="/popular/series">Series</Cover>
-              <span>Populer Series</span>
-            </Wrapper>
-            <Wrapper>
-              <Cover href="/popular/movie">Movies</Cover>
-              <span>Populer Movies</span>
-            </Wrapper>
+            <Link href="/popular/[type]" as="/popular/series">
+              <div className="wrapper">
+                <Cover>Series</Cover>
+                <span>Populer Series</span>
+              </div>
+            </Link>
+            <Link href="/popular/[type]" as="/popular/movie">
+              <div className="wrapper">
+                <Cover>Movies</Cover>
+                <span>Populer Movies</span>
+              </div>
+            </Link>
           </Column>
         </Row>
       </Main>

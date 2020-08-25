@@ -14,9 +14,19 @@ export const Main = styled.main`
     ${Column} {
         display: flex;
     }
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        margin: ${({theme}) => theme.spacing['space']};
+
+        span {
+            margin-top: ${({theme}) => theme.spacing['space-xs']}
+        }
+    }
 `;
 
-export const Cover = styled.a`
+export const Cover = styled.div`
     width: 150px;
     height: 200px;
     background-image: url('/images/placeholder.png');
@@ -30,14 +40,4 @@ export const Cover = styled.a`
     color: ${({ theme }) => theme.color.color1};
     font-size: 2rem;
     font-weight: 500;
-`;
-
-export const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: ${({theme}) => theme.spacing['space']};
-
-    span {
-        margin-top: ${({theme}) => theme.spacing['space-xs']}
-    }
 `;
