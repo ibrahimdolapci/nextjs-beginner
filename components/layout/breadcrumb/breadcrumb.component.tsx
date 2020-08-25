@@ -1,7 +1,8 @@
 import { Container } from './breadcrumb.style'
+import { Column } from '../../grid'
 
-export default function Breadcrumb({ title }) {
+export function Breadcrumb({ title }) {
     return (
-        <Container>{title}</Container>
+        <Container><Column lg="8">{title}</Column></Container>
     )
 }

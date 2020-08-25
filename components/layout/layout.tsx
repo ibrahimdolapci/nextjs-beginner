@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import Header from './header/header.component';
-import Breadcrumb from './breadcrumb/breadcrumb.component';
+import { Header } from './header';
+import { Breadcrumb } from './breadcrumb';
 export const title = 'Pankod'
 
-export default function Layout({ children, title }: { children: React.ReactNode, title: string }) {
+export function Layout({ children, title }: { children: React.ReactNode, title: string }) {
   return (
     <div >
       <Head>

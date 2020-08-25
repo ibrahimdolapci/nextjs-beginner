@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-export const Row = styled.div`
-    &::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
-`;
+// interface IColumnProps { [breakpoint: string]: string };
+
+export const Row = styled.div`  
+  &::after {
+    content: "";
+    clear: both;
+    display: table;
+}`;
 
 function getWidth(span) {
     if (!span) return 100;
@@ -14,9 +15,10 @@ function getWidth(span) {
     return span / 12 * 100;
 };
 
-export const Column = styled.div<{ children } & { [span: string]: number }>`
+export const Column = styled.div<any>`  
     float:left;
     width: 100%;
+    box-sizing: border-box;
 
     @media only screen and (min-width: 768px) {
         width: ${({ sm }) => getWidth(sm)}%;

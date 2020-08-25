@@ -1,7 +1,7 @@
 import { Container, Logo, Actions, Button } from './header.style'
 import { Row, Column } from '../../grid'
 
-export default function Header() {
+export function Header() {
     return (
         <Container>
             <Row className="row">
