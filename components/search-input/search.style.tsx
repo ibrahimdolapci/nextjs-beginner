@@ -7,6 +7,8 @@ export const Container = styled.div`
 `;
 
 export const Input = styled.input`
+    width: 100%;
+    max-width: 250px;
     padding: ${({ theme }) => theme.spacing['space-xs']};
     border: none;
 `;
@@ -15,6 +17,9 @@ export const ButtonWithIcon = styled.button`
     height: 100%;
     background-color: ${({ theme }) => theme.color.primary};
     display: flex;
-    align-item: center;
+    align-items: center;
     justify-content: center;
+    width: 40px;
+    border: none;
+    color: ${({ theme }) => theme.color.color1};
 `;

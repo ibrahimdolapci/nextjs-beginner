@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { Main, Cover, Wrapper } from './home.style'
-import { Row, Column, Layout } from '../../components'
+import { Layout } from '../../components/layout'
+import { Row, Column } from '../../components/grid'
 
 export default function Home() {
   return (
@@ -12,11 +13,11 @@ export default function Home() {
         <Row>
           <Column lg="8">
             <Wrapper>
-              <Cover href="/series">Series</Cover>
+              <Cover href="/popular/series">Series</Cover>
               <span>Populer Series</span>
             </Wrapper>
             <Wrapper>
-              <Cover href="/movies">Movies</Cover>
+              <Cover href="/popular/movie">Movies</Cover>
               <span>Populer Movies</span>
             </Wrapper>
           </Column>
