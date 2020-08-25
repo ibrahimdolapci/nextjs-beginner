@@ -14,16 +14,6 @@ export const Main = styled.main`
     ${Column} {
         display: flex;
     }
-
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        margin: ${({theme}) => theme.spacing['space']};
-
-        span {
-            margin-top: ${({theme}) => theme.spacing['space-xs']}
-        }
-    }
 `;
 
 export const Cover = styled.div`
@@ -40,4 +30,14 @@ export const Cover = styled.div`
     color: ${({ theme }) => theme.color.color1};
     font-size: 2rem;
     font-weight: 500;
+`;
+
+export const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin: ${({theme}) => theme.spacing['space']};
+
+    span {
+        margin-top: ${({theme}) => theme.spacing['space-xs']}
+    }
 `;
